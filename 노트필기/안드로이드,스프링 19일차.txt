@@ -1,0 +1,21 @@
+[안드로이드]
+UI컴포넌트를 위젯(가젯 비슷용어)이라 한다
+레이아웃 : LinearLayout...금일 필기 예정
+
+ LinearLayout(FlowLayout과 흡사)
+   GridLayout
+   FrameLayout
+   AbsoluteLayout
+   RelativeLayout
+   ConstraintLayout
+
+   모든 Swing UI 컴포넌트는 JComponent
+   모든 안드로이드의 UI컴포넌트인 위젯의 최상위 객체는 View 라 한다!!(아이폰도 동일)
+
+
+[스프링]
+EJB 대체하기 위해 개발(로드 존슨) - 선언적 방법으로 트랜잭션 , 보안, 로깅,캐싱 등을 서비스 차원으로 지원
+					  단 자바스럽지 않게 했다...(문제)
+-스프링 프레임웍은 위의 EJB의 장점을 구현하되, 최대한 자바스럽게(POJO+XML+개바패턴)
+-DI(의존성을 약화시키자 따라서 의존성 높은 객체는 외부에서 주입받자)
+-AOP(로직간 의존성을 제거 : 관점지향 프로그래밍) - 스프링 이전부터 지원되던 AspectJ라는 lib이용

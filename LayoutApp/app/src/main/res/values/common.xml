@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--q4_3에 적용할 스타일-->
+    <style name="box_style">
+        <item name="android:padding">40dp</item>
+    </style>
+</resources>
