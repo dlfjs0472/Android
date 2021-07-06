@@ -1,0 +1,30 @@
+[안드로이드 레이아웃]
+- 안드로이드의 GUI 컴포넌트를 위젯(Widget)이라 한다==가젯(Gadget) 이라 한다
+- 레이아웃
+   스윙과 마찬가지로 안드로이드도 GUI프로그래밍 이므로, 레이아웃 개념이 있다.
+   종류
+   LinearLayout(FlowLayout과 흡사)
+   GridLayout
+   FrameLayout
+   AbsoluteLayout
+   RelativeLayout
+   ConstraintLayout(위치의 제약이 있는 레이아웃)
+[Layout]
+1.LinearLayout(선형 레이아웃 : 수직 또는 수평의 방향이 있는 레이아웃)
+
+[스프링]
+1.개발환경 구축
+
+1) 기존 이클립스를 스프링 전용IDE로 플러그인 추가하는법
+    - market place
+    - 
+2) 아예 Spring Tool Suite(전용IDE)를 다운받아 사용하는법
+    최신 스프링 부트 위주의 개발환경임
+
+
+2.DI(의존성 객체 주입) - 결합도를 느슨하게 하자, 유지보수성을 높이기 위해
+   has a 관계로 보유한 객체의 자료형은 상위 자료형으로 선언,
+   이 객체의 인스턴스를 자바 코드에서 직접 new하지말고, 스프링 컨테이너로부터 주입받자!
+   이 경우 객체의 변화, 즉 외부 환경의 변화에 대해 영향을 덜 받는다..
+
+3.AOP (Aspect Oriented Programming) - 관점 지향 프로그래밍
