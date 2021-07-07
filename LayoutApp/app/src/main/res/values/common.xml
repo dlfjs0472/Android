@@ -4,4 +4,18 @@
     <style name="box_style">
         <item name="android:padding">40dp</item>
     </style>
+
+
+    <!--q10에 적용할스타일-->
+    <style name="profile">
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_margin">2dp</item>
+    </style>
+
+    <style name="title_text">
+        <item name="android:textSize">20sp</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:textColor">#FFFF0000</item>
+    </style>
+
 </resources>
