@@ -1,0 +1,15 @@
+[뷰와 레이아웃]
+안드로이드의 모든 UI 컴포넌트는 View를 상속받음
+
+1.View - 남을 포함할 수 있는 뷰(ViewGroup)
+	-ViewGroup 중에서도 배치능력이 있는 뷰그룹을 Layout
+	 LinearLayout, FrameLayout, GridLayout, RelativeLayout, TableLayout
+	- 포함을 당하는 뷰(일반적인 컴포넌트)
+
+2.안드로이드 화면 디자인을 
+	XML vs java코드
+
+3.ScrollView는 자식을 Only One Child!!
+
+[2개 이상의 화면으로 앱을 개발하자!!]
+화면을 제어하는 액티비티를 알아야 한다.
