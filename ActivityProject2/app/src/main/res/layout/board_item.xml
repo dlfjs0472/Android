@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--남을 포함하는 뷰인 뷰그룹은, 자신이 보유한 자식을 아이디로 접근할 수 있다.. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="40dp">
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:src="@drawable/babarian"/>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="4"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/t_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="제목: 바바리안"/>
+
+        <TextView
+            android:id="@+id/t_writer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="작성자: marvel"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_weight="2"
+        android:layout_height="match_parent"
+        android:text="2021-05-21"
+        android:textSize="15sp"
+        android:gravity="center"/>
+</LinearLayout>
