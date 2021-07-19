@@ -1,0 +1,14 @@
+[Activity생명주기]
+onCreate() , onStart(), onResume(), onPause(), onStop() , 
+                  onReStart() 
+onDestory()
+
+
+
+[데이터 전용 뷰 ]
+데이터 출력에 최적화된 뷰...
+View: ListView, GridView, Spinner
+
+특징: 직접 데이터를 연동하지 않고, 어댑터에 의존한다 
+       어댑터가 아이템에 채울 데이터를 가져올때 , 단순한 String일 경우 
+       ListAdapter 를 이용하고 아이템의 디자인 구성은 xml을 이용할 수 있다..
