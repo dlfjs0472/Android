@@ -1,0 +1,25 @@
+[android]
+왜 데이터 처리시 ListView, GridView,Spinner를 사용해야하는 이유?
+- 위의 3가지 뷰를 사용하지 않고 개발자가 직접 ScrollView만으로 개발할 경우
+  화면밖에 보이지도 않는 뷰를 생성해 놓는다...(비효율적이고, 데이터량이 많은 경우 앱다운..)
+- 결론: 위의 3가지 뷰는 자체적인 재사용뷰를 지원해줌...
+
+
+
+[ Spring ]
+1.설정파일의 간소화, 따라서 적극적으로 @Annotation을 적극활용!!
+weaving 문제 --> @Autowired : 자동 DI
+
+요청을 받는 컨트롤러를 2개이상 두었을때, Spring 컨테이어인 ApplicationContext도
+각 서블리 컨트롤러마다 존재하게 된다..
+
+2.Persistence 영역까지도 스프링이 지원
+    따라서 DB연동도 스프링을 이용
+    장점 : 트랜잭션 처리를 자동화!!
+
+    주의) mybatis는 스프링팀에서 지원하지 않았기 때문에, mybatis팀이 스프링지원 jar 제작
+	  mybatis-spring
+
+	  mybatis					mybatis-spring
+	  SqlSessionFactory	 -->		SqlSessionFactoryBean
+	  sqlSession		 -->		SqlSessionTemplate
