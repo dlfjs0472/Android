@@ -30,7 +30,7 @@ public class WriteFragment extends Fragment implements View.OnClickListener {
     EditText t_title, t_writer, t_content;
     MainActivity mainActivity;
     Handler handler;
-    String ip="192.168.0.3";
+    String ip="172.30.1.53";
     int port=8888;
 
     //반환값이 View는, 현재의 프레그먼트에서 보여줄 뷰를 의미

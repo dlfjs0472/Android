@@ -14,7 +14,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-//import com.google.gson.Gson;
 import com.koreait.boardapp.BoardDAO;
 import com.koreait.boardapp.MainActivity;
 import com.koreait.boardapp.R;
@@ -44,6 +43,7 @@ public class ListFragment extends Fragment {
     public BoardListAdapter boardListAdapter;
     Handler handler;
 
+
     @Override
     //반환값이 View는, 현재의 프레그먼트에서 보여줄 뷰를 의미
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -55,9 +55,18 @@ public class ListFragment extends Fragment {
         listView.setAdapter(boardListAdapter);
         //핸들러 정의
         handler = new Handler(){
-            public void handleMessage(@NonNull Message msg) {
-                boardListAdapter.notifyDataSetChanged();
-                listView.invalidate();
+            public void handleMessage(@NonNull Message message) {
+                String msg=(String)message.getData().get("msg");
+
+                //리스트인 경우에...
+                if(msg.equals("list")) {
+                    boardListAdapter.notifyDataSetChanged();
+                    listView.invalidateViews(); // 교체!!!
+                }else if(msg.equals("detail")) {
+                    //상세보기인 경우에..
+                    MainActivity mainActivity=(MainActivity) ListFragment.this.getActivity();
+                    mainActivity.showPage(2);
+                }
             }
         };
 
@@ -72,13 +81,86 @@ public class ListFragment extends Fragment {
         //리스트뷰와 이벤트 리스너연결
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d(TAG, "아이템 선택했어?");
-                MainActivity mainActivity=(MainActivity) ListFragment.this.getActivity();
-                mainActivity.showPage(2);
+                Board board=boardListAdapter.boardList.get(position);
+                Log.d(TAG, "지금 선택한 아이템의 position"+position+", id 는 "+id);
+
+                //getDetail 호출
+                Thread thread = new Thread(){
+                    public void run() {
+                        getDetail(board.getBoard_id());
+                    }
+                };
+                thread.start();
             }
         });
 
         return view;
+    }
+
+    //상세보기 메서드 정의
+    public void getDetail(int board_id){
+        URL url=null;
+        HttpURLConnection con=null;
+        BufferedReader buffr=null;
+        StringBuilder sb = new StringBuilder();
+
+        try {
+            url=new URL("http://"+ip+":"+port+"/rest/board/"+board_id);
+            con=(HttpURLConnection) url.openConnection();
+            con.setRequestMethod("GET");
+            buffr = new BufferedReader(new InputStreamReader(con.getInputStream(),"UTF-8"));
+
+            String data=null;
+            while(true){
+                data = buffr.readLine();
+                if(data==null)break;
+                sb.append(data); //한줄씩 모으기
+            }
+            int code=con.getResponseCode();
+
+            Log.d(TAG, "code="+code);
+            Log.d(TAG, "sb="+sb.toString());
+
+            //여기서 서버로부터 전송된, json을 ListView에 반영하기!!!(실제적으론 BaseAdapter제어)
+            //서버로부터 가져온 데이터를   ListView가 의존하고 있는 어댑터의 ArrayList에 대입!!
+            //sb를 java의 util의 List로 변환해야 함!!
+            JSONObject json=new JSONObject(sb.toString());
+
+            //아이템 선택시 해당 게시물을 보관해놓을 VO, 그리고 이  VO는 MainActivity 에 보관해놓아야
+            //MainActivity가 거느리는 모든 Fragment 가 쉽게 접근할 수 가 있다..
+            Board board = new Board();//empty vo
+            board.setBoard_id(json.getInt("board_id"));
+            board.setTitle(json.getString("title"));
+            board.setWriter(json.getString("writer"));
+            board.setContent(json.getString("content"));
+            board.setRegdate(json.getString("regdate"));
+            board.setHit(json.getInt("hit"));
+            MainActivity mainActivity=(MainActivity)this.getActivity();
+            mainActivity.board = board;
+
+            //핸들러에게 부탁하자!! UI제어를...
+            Message message = new Message();
+            Bundle bundle = new Bundle();
+            bundle.putString("msg","detail");
+            message.setData(bundle);
+
+            handler.sendMessage(message);
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } finally{
+            if(buffr!=null){
+                try {
+                    buffr.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     public void getList(){
@@ -127,7 +209,12 @@ public class ListFragment extends Fragment {
             }
             boardListAdapter.boardList = boardList; //대체!!!
             //핸들어에게 부탁하자!! UI제어를...
-            handler.sendEmptyMessage(0);
+            //원하는게무엇인지 Message에 담아서 전달하자!!
+            Message message = new Message();
+            Bundle bundle = new Bundle();
+            bundle.putString("msg","list");
+            message.setData(bundle);
+            handler.sendMessage(message);
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
